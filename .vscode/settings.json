@@ -1,0 +1,5 @@
+{
+    "files.autoSaveDelay": 500,
+    "java.saveActions.organizeImports": true,
+    "files.autoSave": "afterDelay"
+}
