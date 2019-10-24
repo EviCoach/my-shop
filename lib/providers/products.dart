@@ -61,9 +61,30 @@ class Products with ChangeNotifier {
     return _items.where((prod) => prod.isFavorite).toList();
   }
 
-  void addProduct(Product value) {
-    _items.add(value);
+  void addProduct(Product product) {
+    // create a new product and copy the
+    //values of the given product into the new one
+    final newProduct = Product(
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
+    );
+    // _items.add(newProduct);
+    _items.insert(0, newProduct); // at the beginning of the list
     notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      print(prodIndex);
+      print(newProduct);
+      print('updated');
+      notifyListeners();
+    }
   }
 
   Product findById(String id) => _items.firstWhere((prod) => prod.id == id);
