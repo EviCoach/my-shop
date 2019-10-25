@@ -18,7 +18,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(loadedProduct.title),
+        title: Text('${loadedProduct.title}'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -42,7 +42,7 @@ class ProductDetailScreen extends StatelessWidget {
               height: 10,
             ),
             Text(
-              loadedProduct.description,
+              '${loadedProduct.description}',
               textAlign: TextAlign.center,
               softWrap: true,
             ),
