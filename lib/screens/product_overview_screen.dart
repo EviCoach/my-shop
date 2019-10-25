@@ -40,8 +40,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           _isLoading = false;
         });
       }));
-      print(
-          'fetchAndSetProducts() called ********************************************************************');
     }
     _isInit = false;
     super.didChangeDependencies();
