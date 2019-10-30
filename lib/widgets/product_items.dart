@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/providers/auth.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product.dart';
+import '../providers/products.dart';
 import '../providers/Cart.dart';
 import '../screens/product_detail_screen.dart';
 
@@ -14,6 +17,7 @@ class ProductItem extends StatelessWidget {
   // ProductItem(this.id, this.title, this.imageUrl, this.price);
   @override
   Widget build(BuildContext context) {
+    final scaffold = Scaffold.of(context);
     // final product = Provider.of<Product>(context);
 
     // this gives us access to the nearest provider object of type Cart
@@ -39,9 +43,15 @@ class ProductItem extends StatelessWidget {
                 arguments: product.id,
               );
             },
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
+            child: Hero( // the hero animation is always used between two different pages
+              tag: product.id,
+                          child: FadeInImage(
+                placeholder: AssetImage('assets/images/product-placeholder.png'),
+                image: NetworkImage(
+                  product.imageUrl.toString(),
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           footer: GridTileBar(
@@ -50,8 +60,22 @@ class ProductItem extends StatelessWidget {
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).accentColor,
               ),
-              onPressed: () {
+              onPressed: () async {
+                // change the product favorite status
+                // and update the product
                 product.toggleFavoriteStatus();
+                try {
+                  final userId = await Provider.of<Auth>(context).userId;
+                  await Provider.of<Products>(context).updateFavoriteStatus(
+                      product.id, userId, product.isFavorite);
+                } catch (err) {
+                  scaffold.hideCurrentSnackBar();
+                  var data1 = 'Error saving product as favourite';
+                  var data2 = 'Error removing product as favourite';
+                  scaffold.showSnackBar(SnackBar(
+                    content: Text(product.isFavorite ? data2 : data1),
+                  ));
+                }
               },
             ),
             trailing: IconButton(

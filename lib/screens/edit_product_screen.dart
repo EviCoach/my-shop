@@ -301,11 +301,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                   !value.startsWith('https')) {
                                 return 'Please enter a valid url';
                               }
-                              if (!value.endsWith('.png') &&
-                                  !value.endsWith('.jpg') &&
-                                  !value.endsWith('.jpeg')) {
-                                return 'Please enter a valid image URL';
-                              }
+                              // if (!value.endsWith('.png') &&
+                              //     !value.endsWith('.jpg') &&
+                              //     !value.endsWith('.jpeg')) {
+                              //   return 'Please enter a valid image URL';
+                              // }
                               return null;
                             },
                             // takes as much width as it can get

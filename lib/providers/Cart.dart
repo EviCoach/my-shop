@@ -11,7 +11,7 @@ class CartItem {
     @required this.id,
     @required this.quantity,
     @required this.price,
-  });
+  }); 
 }
 
 class Cart with ChangeNotifier {
